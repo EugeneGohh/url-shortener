@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import SearchInput from "../../components/SearchInput";
+import Card from "../../components/Card";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -57,31 +58,8 @@ export default function Home() {
         </div>
 
         <div className={styles.grid}>
-          <a
-            href=""
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Short URL <span>-&gt;</span>
-            </h2>
-            <h1 className={inter.className}>Title tag</h1>
-            <p className={inter.className}>Original target url</p>
-          </a>
-
-          <a
-            href=""
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Short URL <span>-&gt;</span>
-            </h2>
-            <h1 className={inter.className}>Title tag</h1>
-            <p className={inter.className}>Original target url</p>
-          </a>
+          <Card />
+          <Card />
         </div>
       </main>
     </>
