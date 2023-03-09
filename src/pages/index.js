@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { AiFillGithub } from "react-icons/ai";
+import SearchInput from "../../components/SearchInput";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,45 +20,41 @@ export default function Home() {
       <main className={styles.main}>
         {/* Navbar */}
         <div className={styles.description}>
+          <p>
+            Built by&nbsp;
+            <code className={styles.code}>Eugene Goh</code>
+          </p>
+          
           <div>
             <a
-              href="https://github.com/EugeneGohh"
+              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Built By <p className={inter.className}>Eugene Goh</p>
-            </a>
-          </div>
-
-          <div>
-            <a
-              href="https://github.com/EugeneGohh/url-shortener"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <AiFillGithub style={{ width: "65px", height: "40px" }} />
+              Deploy with{" "}
+              <Image
+                src="/vercel.svg"
+                alt="Vercel Logo"
+                className={styles.vercelLogo}
+                width={100}
+                height={24}
+                priority
+              />
             </a>
           </div>
         </div>
 
         <div className={styles.center}>
-          {/* <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div> */}
+          <h2
+            className={
+              "bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-lg font-bold tracking-[-0.02em] text-transparent drop-shadow-sm md:text-5xl md:leading-[5rem] m-5"
+            }
+            style={{ opacity: 1 }}
+          >
+            Trim Your Links with Our URL Shortener!
+          </h2>
+
+          <SearchInput />
         </div>
 
         <div className={styles.grid}>
