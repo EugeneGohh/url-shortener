@@ -43,6 +43,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(25%, auto));
   width: var(--max-width);
+  grid-gap: 25px;
   max-width: 100%;
 }
 
