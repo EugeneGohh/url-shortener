@@ -9,9 +9,6 @@ export default async function handler(req, res) {
     // retrieve all documents from the items collection
     const items = await db.collection("items").find().toArray();
 
-    // close db connection
-    await client.close();
-
     // send the retrieved documents in the response in JSON
     res.status(200).json({ data: items });
   } catch (e) {
