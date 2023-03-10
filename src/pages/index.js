@@ -59,7 +59,6 @@ export default function Home() {
 
         <div className={styles.grid}>
           <Card />
-          <Card />
         </div>
       </main>
     </>
