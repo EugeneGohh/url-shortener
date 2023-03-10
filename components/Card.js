@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Card() {
+function Card({ shortUrl, titleTag, targetUrl }) {
   const [showModal, setShowModal] = useState(false);
 
   const handleShowModal = () => {
@@ -15,16 +15,16 @@ function Card() {
     <>
       <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div className="p-5">
-          <a href="#">
-            <h6 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Short URL
-            </h6>
+          <a href={shortUrl} target="_blank">
+            <p className="mb-2 font-bold tracking-tight text-gray-900 dark:text-white">
+              {shortUrl}
+            </p>
           </a>
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            Title Tag
+            {titleTag}
           </p>
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            Original Target URL
+            {targetUrl}
           </p>
           <a
             href="#"
