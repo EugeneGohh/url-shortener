@@ -4,13 +4,32 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { AiOutlineScissor } from "react-icons/ai";
-import Card from "../../components/Card";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ data }) {
   const [longUrl, setLongUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleRedirect = async (urlId) => {
+    const response = await fetch(`/api/redirect?urlId=${urlId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response;
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -91,7 +110,7 @@ export default function Home({ data }) {
                 placeholder="Trim Now"
                 value={longUrl}
                 onChange={(event) => setLongUrl(event.target.value)}
-                pattern="^(https?://)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$"
+                pattern="^(https?:\/\/)?[a-z0-9\-._~:/?#[\]@!$&'()*+,;=]+$"
                 title="Please enter a valid URL"
                 required
               />
@@ -110,12 +129,90 @@ export default function Home({ data }) {
         {/* Display shorten url, target url & title tag */}
         <div className={styles.grid}>
           {data.data.map((i, index) => (
-            <div key={index}>
-              <Card
-                shortUrl={i.shortUrl}
-                title={i.title}
-                targetUrl={i.origUrl}
-              />
+            <div
+              className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+              key={index}
+            >
+              <div className="p-5">
+                <a
+                  href={shortUrl}
+                  onClick={() => handleRedirect(i.urlId)}
+                  target="_blank"
+                >
+                  <p className="mb-2 font-bold tracking-tight text-gray-900 dark:text-white">
+                    {i.shortUrl}
+                  </p>
+                </a>
+
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  {i.title}
+                </p>
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-ellipsis">
+                  {i.origUrl}
+                </p>
+
+                <a
+                  href="#"
+                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  onClick={handleShowModal}
+                >
+                  View Report
+                  <svg
+                    aria-hidden="true"
+                    className="w-4 h-4 ml-2 -mr-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                </a>
+
+                {showModal && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+                    <div className="relative bg-white w-1/2 max-w-md mx-auto rounded-lg shadow-lg z-10">
+                      <div className="py-8 px-4 sm:px-6 lg:px-8">
+                        <div className="p-6 space-y-6">
+                          <h1 className="text-lg font-bold mb-4">
+                            Report of Current Short URL
+                          </h1>
+
+                          <h2 className="text-lg font-bold mb-4">
+                            Total clicks: {i.clicks.length}
+                          </h2>
+                          {i.clicks.map((click, index) => (
+                            <div key={index} className="mb-2">
+                              <div className="text-sm font-medium text-gray-700">
+                                Geolocation: {click.geoLocation}
+                              </div>
+                              <div className="text-xs text-gray-600">
+                                Timestamp:{" "}
+                                {new Date(click.timestamp).toLocaleString()}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                          <button
+                            data-modal-hide="defaultModal"
+                            type="button"
+                            className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                            onClick={handleCloseModal}
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           ))}
         </div>
