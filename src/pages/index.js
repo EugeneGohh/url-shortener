@@ -240,7 +240,7 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps(context) {
-  const apiUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/all`;
+  const apiUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/all`;
   const res = await fetch(apiUrl);
   const data = await res.json();
 
