@@ -1,13 +1,32 @@
+import { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import SearchInput from "../../components/SearchInput";
+import { AiOutlineScissor } from "react-icons/ai";
 import Card from "../../components/Card";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ data }) {
+  const [longUrl, setLongUrl] = useState("");
+  const [shortUrl, setShortUrl] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const response = await fetch(`/api/shorten?origUrl=${longUrl}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+    setShortUrl(data.shortenUrl);
+    setLongUrl("");
+  };
+
   return (
     <>
       <Head>
@@ -54,16 +73,48 @@ export default function Home({ data }) {
             Trim Your Links with Our URL Shortener!
           </h2>
 
-          <SearchInput />
+          {/* Input field */}
+          <form className="flex items-center" onSubmit={handleSubmit}>
+            <label htmlFor="simple-search" className="sr-only">
+              Search
+            </label>
+
+            <div className="relative w-full">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <AiOutlineScissor />
+              </div>
+
+              <input
+                type="url"
+                id="simple-search"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Trim Now"
+                value={longUrl}
+                onChange={(event) => setLongUrl(event.target.value)}
+                pattern="^(https?://)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$"
+                title="Please enter a valid URL"
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              <AiOutlineScissor />
+              <span className="sr-only">Search</span>
+            </button>
+          </form>
         </div>
 
+        {/* Display shorten url, target url & title tag */}
         <div className={styles.grid}>
           {data.data.map((i, index) => (
             <div key={index}>
               <Card
                 shortUrl={i.shortUrl}
                 titleTag={i.origUrl}
-                targetUrl={i.origUrl}
+                targetUrl={i.title}
               />
             </div>
           ))}
