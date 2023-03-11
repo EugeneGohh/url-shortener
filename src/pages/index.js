@@ -114,7 +114,7 @@ export default function Home({ data }) {
               <Card
                 shortUrl={i.shortUrl}
                 titleTag={i.origUrl}
-                targetUrl={i.origUrl}
+                targetUrl={i.title}
               />
             </div>
           ))}
