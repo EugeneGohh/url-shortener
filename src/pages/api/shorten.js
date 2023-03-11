@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     // the original url
     const { origUrl } = req.query;
     // base url
-    const base = process.env.BASE;
+    const base = process.env.NEXT_PUBLIC_VERCEL_URL;
     // generate url id
     const urlId = nanoid(6);
 
