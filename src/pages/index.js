@@ -113,8 +113,8 @@ export default function Home({ data }) {
             <div key={index}>
               <Card
                 shortUrl={i.shortUrl}
-                titleTag={i.origUrl}
-                targetUrl={i.title}
+                title={i.title}
+                targetUrl={i.origUrl}
               />
             </div>
           ))}

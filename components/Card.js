@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Card({ shortUrl, titleTag, targetUrl }) {
+function Card({ shortUrl, title, targetUrl }) {
   const [showModal, setShowModal] = useState(false);
 
   const handleShowModal = () => {
@@ -21,7 +21,7 @@ function Card({ shortUrl, titleTag, targetUrl }) {
             </p>
           </a>
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            {titleTag}
+            {title}
           </p>
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
             {targetUrl}
