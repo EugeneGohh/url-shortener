@@ -1,6 +1,7 @@
 import clientPromise from "../../../lib/mongodb";
 import { nanoid } from "nanoid";
 import axios from "axios";
+import cheerio from "cheerio";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -16,9 +17,6 @@ export default async function handler(req, res) {
       const client = await clientPromise;
       const db = client.db("test");
 
-      // find the original url
-      // const existingUrl = await db.collection("items").findOne({ origUrl });
-
       // create a shorten url
       const shortUrl = `${base}/${urlId}`;
 
@@ -28,8 +26,16 @@ export default async function handler(req, res) {
       const response = await axios.get(`http://ip-api.com/json/${ipAddress}`);
       const city = response.data.city || "Unknown";
 
+      // Make an HTTP request to target URL & retrieve the HTML content
+      const targetResponse = await axios.get(origUrl);
+      const html = targetResponse.data;
+      // Use Cheerio to parse the HTML and extract the title tag
+      const $ = cheerio.load(html);
+      const title = $("title").text();
+
       await db.collection("items").insertOne({
         urlId,
+        title,
         origUrl,
         shortUrl,
         clicks: [{ geoLocation: city, timestamp: new Date() }],
