@@ -20,6 +20,21 @@ export default function Home({ data }) {
     setShowModal(false);
   };
 
+  const handleShortUrlClick = async (urlId) => {
+    try {
+      const response = await fetch(`/api/update?urlId=${urlId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleRedirect = async (urlId) => {
     const response = await fetch(`/api/redirect?urlId=${urlId}`, {
       method: "GET",
@@ -136,7 +151,10 @@ export default function Home({ data }) {
               <div className="p-5">
                 <a
                   href={shortUrl}
-                  onClick={() => handleRedirect(i.urlId)}
+                  onClick={() => {
+                    handleRedirect(i.urlId);
+                    handleShortUrlClick(i.urlId);
+                  }}
                   target="_blank"
                 >
                   <p className="mb-2 font-bold tracking-tight text-gray-900 dark:text-white">
