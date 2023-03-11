@@ -240,7 +240,7 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps(context) {
-  const apiUrl = "http://localhost:3000/api/all";
+  const apiUrl = `${process.env.BASE}/api/all`;
   const res = await fetch(apiUrl);
   const data = await res.json();
 
