@@ -58,8 +58,7 @@ export default function Home({ data }) {
         },
       });
 
-      const text = await response.text();
-      const data = text ? JSON.parse(text) : {};
+      const data = await response.json();
 
       if (response.ok) {
         setShortUrl(data.shortUrl);
