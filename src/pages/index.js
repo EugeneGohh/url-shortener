@@ -41,6 +41,7 @@ export default function Home({ data }) {
       headers: {
         "Content-Type": "application/json",
       },
+      mode: "no-cors",
     });
 
     return response;
@@ -172,9 +173,9 @@ export default function Home({ data }) {
                 <a
                   href="#"
                   className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  onClick={handleShowModal}
+                  onClick={showModal ? handleCloseModal : handleShowModal}
                 >
-                  View Report
+                  {showModal ? "Close Report" : "View Report"}
                   <svg
                     aria-hidden="true"
                     className="w-4 h-4 ml-2 -mr-1"
@@ -191,43 +192,18 @@ export default function Home({ data }) {
                 </a>
 
                 {showModal && (
-                  <div className="fixed inset-0 z-50 flex items-center justify-center">
-                    <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-                    <div className="relative bg-white w-1/2 max-w-md mx-auto rounded-lg shadow-lg z-10">
-                      <div className="py-8 px-4 sm:px-6 lg:px-8">
-                        <div className="p-6 space-y-6">
-                          <h1 className="text-lg font-bold mb-4">
-                            Report of Current Short URL
-                          </h1>
-
-                          <h2 className="text-lg font-bold mb-4">
-                            Total clicks: {i.clicks.length}
-                          </h2>
-                          {i.clicks.map((click, index) => (
-                            <div key={index} className="mb-2">
-                              <div className="text-sm font-medium text-gray-700">
-                                Geolocation: {click.geoLocation}
-                              </div>
-                              <div className="text-xs text-gray-600">
-                                Timestamp:{" "}
-                                {new Date(click.timestamp).toLocaleString()}
-                              </div>
-                            </div>
-                          ))}
+                  <div className="border-t border-gray-300 pt-4 mt-5">
+                    {i.clicks.map((click, index) => (
+                      <div key={index} className="mb-2">
+                        <div className="text-sm font-medium text-gray-700">
+                          Geolocation: {click.geoLocation}
                         </div>
-
-                        <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                          <button
-                            data-modal-hide="defaultModal"
-                            type="button"
-                            className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                            onClick={handleCloseModal}
-                          >
-                            Close
-                          </button>
+                        <div className="text-xs text-gray-600">
+                          Timestamp:{" "}
+                          {new Date(click.timestamp).toLocaleString()}
                         </div>
                       </div>
-                    </div>
+                    ))}
                   </div>
                 )}
               </div>
@@ -240,7 +216,10 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps(context) {
-  const apiUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/all`;
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/all`
+      : `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/all`;
   const res = await fetch(apiUrl);
   const data = await res.json();
 
