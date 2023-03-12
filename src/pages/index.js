@@ -50,16 +50,28 @@ export default function Home({ data }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await fetch(`/api/shorten?origUrl=${longUrl}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    try {
+      const response = await fetch(`/api/shorten?origUrl=${longUrl}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    const data = await response.json();
-    setShortUrl(data.shortenUrl);
-    setLongUrl("");
+      const text = await response.text();
+      const data = text ? JSON.parse(text) : {};
+
+      if (response.ok) {
+        setShortUrl(data.shortUrl);
+        setLongUrl("");
+      } else {
+        // Handle the error here
+        console.error(data);
+      }
+    } catch (error) {
+      // Handle the error here
+      console.error(error);
+    }
   };
 
   return (
