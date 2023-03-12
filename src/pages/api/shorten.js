@@ -10,8 +10,8 @@ export default async function handler(req, res) {
     // base url
     const base =
       process.env.NODE_ENV === "production"
-        ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/all`
-        : `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/all`;
+        ? `${process.env.NEXT_PUBLIC_VERCEL_URL}`
+        : `${process.env.BASE}`;
     // generate url id
     const urlId = nanoid(6);
 
