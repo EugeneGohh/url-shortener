@@ -12,6 +12,10 @@ export default function Home({ data }) {
   const [shortUrl, setShortUrl] = useState("");
   const [showModal, setShowModal] = useState(false);
 
+  const handleReload = () => {
+    window.location.reload();
+  };
+
   const handleShowModal = () => {
     setShowModal(true);
   };
@@ -139,6 +143,14 @@ export default function Home({ data }) {
               <AiOutlineScissor />
               <span className="sr-only">Search</span>
             </button>
+
+            <p
+              type="submit"
+              className="p-2.5 ml-2.5 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 text-center"
+              onClick={handleReload}
+            >
+              Get New Data
+            </p>
           </form>
         </div>
 
