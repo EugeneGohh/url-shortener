@@ -12,16 +12,16 @@ export default function Home({ data }) {
   const [shortUrl, setShortUrl] = useState("");
   const [showModal, setShowModal] = useState(false);
 
+  const handleReload = () => {
+    window.location.reload();
+  };
+
   const handleShowModal = () => {
     setShowModal(true);
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
-  };
-
-  const handleReload = () => {
-    window.location.reload();
   };
 
   const handleShortUrlClick = async (urlId) => {
