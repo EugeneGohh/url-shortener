@@ -20,6 +20,10 @@ export default function Home({ data }) {
     setShowModal(false);
   };
 
+  const handleReload = () => {
+    window.location.reload();
+  };
+
   const handleShortUrlClick = async (urlId) => {
     try {
       const response = await fetch(`/api/update?urlId=${urlId}`, {
@@ -33,18 +37,6 @@ export default function Home({ data }) {
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const handleRedirect = async (urlId) => {
-    const response = await fetch(`/api/redirect?urlId=${urlId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "no-cors",
-    });
-
-    return response;
   };
 
   const handleSubmit = async (event) => {
@@ -150,6 +142,14 @@ export default function Home({ data }) {
               <AiOutlineScissor />
               <span className="sr-only">Search</span>
             </button>
+
+            <button
+              type="button"
+              className="p-2.5 ml-2.5 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-center"
+              onClick={handleReload}
+            >
+              Get New Data
+            </button>
           </form>
         </div>
 
@@ -162,11 +162,8 @@ export default function Home({ data }) {
             >
               <div className="p-5">
                 <a
-                  href={shortUrl}
-                  onClick={() => {
-                    handleRedirect(i.urlId);
-                    handleShortUrlClick(i.urlId);
-                  }}
+                  href={`/api/redirect?shortUrl=${i.shortUrl}`}
+                  onClick={() => handleShortUrlClick(i.urlId)}
                   target="_blank"
                 >
                   <p className="mb-2 font-bold tracking-tight text-gray-900 dark:text-white">
@@ -204,10 +201,14 @@ export default function Home({ data }) {
 
                 {showModal && (
                   <div className="border-t border-gray-300 pt-4 mt-5">
+                    <p className="mb-2 font-bold tracking-tight text-gray-900 dark:text-white">
+                      Number of Clicks: {i.clicks.length}
+                    </p>
+
                     {i.clicks.map((click, index) => (
                       <div key={index} className="mb-2">
                         <div className="text-sm font-medium text-gray-700">
-                          Geolocation: {click.geoLocation}
+                          Originating Geolocation: <b>{click.geoLocation}</b>
                         </div>
                         <div className="text-xs text-gray-600">
                           Timestamp:{" "}
