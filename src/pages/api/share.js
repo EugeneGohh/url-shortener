@@ -17,7 +17,11 @@ export default async function handler(req, res) {
   }
 
   // generate text to share
-  const post = `Check out this link: ${result.origUrl} (${result.shortUrl})`;
+  const post = `Check out this link: ${result.origUrl} (${
+    process.env.NODE_ENV === "production"
+      ? process.env.NEXT_PUBLIC_VERCEL_URL
+      : process.env.BASE
+  }/api/redirect?shortUrl=${result.shortUrl})`;
 
   // return the social media post
   res.status(200).json({ post: post });
