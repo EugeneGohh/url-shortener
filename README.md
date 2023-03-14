@@ -2,6 +2,8 @@
 
 This is a URL Shortener web application built with Next.js, TailwindCSS and MongoDB that allows users to convert user-provided target URL ("_Target URL_") to short-form URL ("_Short URL_"), track number of clicks, originating geolocation and timestamp of each visit to a Short URL & can be publicly shared and accessed.
 
+<img width="1792" alt="image" src="https://user-images.githubusercontent.com/64187129/225075058-f16ea861-820d-4f8b-a50b-fba57eb932cf.png">
+
 ## Tech Stack
 
 The following technologies were used to build the URL shortener:
