@@ -104,7 +104,7 @@ export default function Home({ data }) {
         <div className={styles.center}>
           <h2
             className={
-              "bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-lg font-bold tracking-[-0.02em] text-transparent drop-shadow-sm md:text-5xl md:leading-[5rem] m-5"
+              "bg-gradient-to-br from-blue-500 to-blue-600 bg-clip-text text-center font-display text-lg font-bold tracking-[-0.02em] text-transparent drop-shadow-sm md:text-5xl md:leading-[5rem] m-5"
             }
             style={{ opacity: 1 }}
           >
