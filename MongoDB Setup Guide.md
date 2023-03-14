@@ -17,12 +17,13 @@
 ## Creating a Database
 1. Navigate to the "**Database**" tab in your MongoDB Atlas dashboard.
 2. Click on "**Browse Collections**".
-3. Click on "**Create Database**"
+3. Click on "**Add my Own Data**".
 4. Enter "**Database Name**" & "**Collection Name**". Please enter the following to the input field.
    | Database Name  | Collection Name |
    | ---------------|:--------------: |
    | test           | items           |          
-5. Untick all checkboxes on **Additional Preferences**
+5. Click on "**Create**" button to "**Create Database**".
+6. Untick all checkboxes on **Additional Preferences**.
 
 ## Connecting to MongoDB
 1. Navigate to the "**Clusters**" tab in your MongoDB Atlas dashboard.
