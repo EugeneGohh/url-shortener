@@ -15,7 +15,7 @@ The following technologies were used to build the URL shortener:
 Before moving into installing this project, make sure you have the following installed on your local machine:
 
 - Node.js `v16.13.2+` and npm (Node Package Manager)
-- Git & GitKraken
+- Git or GitKraken
 - [MongoDB Cloud](https://www.mongodb.com/cloud)
 
 ## Branching Strategy
@@ -106,7 +106,6 @@ The URL shortener contains these RESTful APIs for
 2. Receiving a Target URL as input, generates a unique short URL with a maximum length of 15 characters, stores the Target URL and short URL in a database, and returns the short URL, Target URL, and title tag of the Target URL to the user.
 3. Generating a usage report for the application, tracking the number of clicks, originating geolocation, and timestamp of each visit to a Short URL.
 4. Receiving a short URL as input, looks up the corresponding Target URL in the database, records the number of clicks, originating geolocation, and timestamp of the visit in the database, and redirects the user to the Target URL.
-5. Receiving a short URL as input, looks up the corresponding Target URL in the database, generates a social media post with the Target URL and short URL, and returns the post to the user.
 
 **The API endpoints are**:
 
@@ -125,9 +124,6 @@ GET /api/redirect?shortUrl="SHORT_URL"
 Update number of clicks, originating geolocation,
 and timestamp of the visit in the database.
 Redirects the user to the Target URL.
-
-GET /api/share?shortUrl="SHORT_URL"
-Generates a social media post with the Target URL and short URL
 ```
 
 ## Repository Structure
@@ -150,7 +146,6 @@ The repository has the following structure:
 │   │   ├── api/
 │   │   │   ├── all.js
 │   │   │   ├── redirect.js
-│   │   │   └── share.js
 |   |   |   ├── shorten.js
 |   |   |   ├── update.js
 │   │   ├── _app.js
@@ -183,14 +178,22 @@ The repository has the following structure:
 
 - `public/`: Contains static assets such as images and favicons.
 
-* `src/`: Contains the source code of the Next.js app.
-* `src/pages/`: Contains the app's pages and API routes.
-* `src/styles/`: Contains the CSS styles used by the application
-* `tailwind.config.js`: Contains the configuration for TailwindCSS.
-* `package.json`: Contains the project's dependencies and scripts.
+- `src/`: Contains the source code of the Next.js app.
+- `src/pages/`: Contains the app's pages and API routes.
+- `src/styles/`: Contains the CSS styles used by the application
+- `tailwind.config.js`: Contains the configuration for TailwindCSS.
+- `package.json`: Contains the project's dependencies and scripts.
 
-## Dependencies & Relevant Information
+## Dependencies and Other Relevant Information (i.e scaffolding tools)
 
+### Scripts
+- `dev` - Runs Next.js in development mode.
+- `build` - Builds the Next.js app for production.
+- `start` - Starts a Next.js production server.
+- `lint` - Lints the Next.js app using ESLint.
+- `seed` - Seeds the MongoDB database with dummy data.
+- `test` - Runs Jest tests in watch mode.
+### Dependencies
 The application was built using the following dependencies and scaffolding tools:
 
 - [`axios`](https://www.npmjs.com/package/axios): A promise-based HTTP client for Node.js and the browser.
@@ -206,6 +209,24 @@ The application was built using the following dependencies and scaffolding tools
 - `react`: A JavaScript library for building user interfaces.
 - `react-dom`: A package that provides DOM-specific methods that can be used at the top level of a web application.
 - [`react-icons`](https://www.npmjs.com/package/react-icons): A set of SVG icons for popular icon libraries such as Font Awesome and Material Design.
+
+### Development Dependencies
+
+The project also has the following development dependencies:
+
+- [`faker`](https://www.npmjs.com/package/@faker-js/faker): A TypeScript-compatible version of the faker library, which provides type definitions for use with TypeScript.
+- [`@testing-library/jest-dom`](https://www.npmjs.com/package/@testing-library/jest-dom): A library of custom Jest matchers that you can use to extend Jest's default assertions.
+- [`@testing-library/react`](https://www.npmjs.com/package/@testing-library/react): A library for testing React components and behavior.
+  autoprefixer: A tool for adding vendor prefixes to CSS rules.
+- [`jest`](https://jestjs.io/): A JavaScript testing framework.
+- `jest-environment-jsdom`: A JSDOM-based environment for running Jest tests.
+- `postcss`: A tool for transforming CSS with JavaScript.
+- `autoprefixer`: A plugin for PostCSS that uses data from Can I Use to add vendor prefixes to CSS rules.
+- [`tailwindcss`](https://tailwindcss.com/): A utility-first CSS framework for rapidly building custom user interfaces.
+
+### Scaffolding Tools
+
+The project does not use any scaffolding tools. However, it does use Next.js, which provides a framework for building React-based web applications. The `create-next-app` command can be used to create a new Next.js project with a basic file structure and configuration.
 
 ## Deployed Application URL
 
