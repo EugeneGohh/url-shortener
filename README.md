@@ -12,6 +12,8 @@ The following technologies were used to build the URL shortener:
 
 ## The Rough App Design
 
+![CG-Assignment excalidraw](https://user-images.githubusercontent.com/64187129/224989481-db4299ca-3fb6-400f-ad5c-ee4be58e114d.png)
+
 ## Prerequisites
 
 Before moving into installing this project, make sure you have the following installed on your local machine:
@@ -22,7 +24,7 @@ Before moving into installing this project, make sure you have the following ins
 
 ## Branching Strategy
 
-The URL shortener project uses the Gitflow branching strategy, which is a well-known and widely used model for managing Git branches. The Gitflow model defines two main branches: `main` and `develop`, as well as several **supporting branches** for **feature development**, **hotfixes**, and **releases**.
+The URL shortener project uses the Gitflow branching strategy, which is a well-known and widely used model for managing Git branches. The Gitflow model defines two main branches: `main` and `develop`, as well as several **supporting branches** for **features development**, **hotfixes**, and **releases**.
 
 `main`: The `main` branch contains the stable and production-ready code. It should only be updated through merges from the `release` or `hotfix` branches.
 
@@ -105,6 +107,8 @@ To shorten a URL, follow these steps:
 4. A **Short URL**, the **original Target URL** and the **Title tag of the Target URL** returned in a new card.
 5. Click "**View Report**", to view **number of clicks**, **originating geolocation** and **timestamp** of each visit to the Short URL
 6. Copy the shortened URL to your clipboard or share it directly on social media.
+
+[Video on How to Use](https://www.youtube.com/watch?v=-UlGg7phVMY)
 
 ## APIs
 
