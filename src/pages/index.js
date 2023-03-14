@@ -15,18 +15,20 @@ export default function Home({ data }) {
   const [longUrl, setLongUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [post, setPost] = useState("");
   const [isCopied, setIsCopied] = useState(false);
 
+  /* Handler for copy text */
   const handleCopy = (textToCopy) => {
     navigator.clipboard.writeText(textToCopy);
     setIsCopied(true);
   };
 
+  /* Handler for page reload */
   const handleReload = () => {
     window.location.reload();
   };
 
+  /* Handler for showing & closing modal */
   const handleShowModal = () => {
     setShowModal(true);
   };
@@ -35,6 +37,7 @@ export default function Home({ data }) {
     setShowModal(false);
   };
 
+  /* Handler to call Update API  */
   const handleShortUrlClick = async (urlId) => {
     try {
       const response = await fetch(`/api/update?urlId=${urlId}`, {
@@ -50,6 +53,7 @@ export default function Home({ data }) {
     }
   };
 
+  /* Handler to call Shorten URL API  */
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -72,22 +76,6 @@ export default function Home({ data }) {
       }
     } catch (error) {
       // Handle the error here
-      console.error(error);
-    }
-  };
-
-  const handleShare = async (shortUrl) => {
-    try {
-      const res = await fetch(`/api/share?shortUrl=${shortUrl}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
-      setPost(data.post);
-      return data;
-    } catch (error) {
       console.error(error);
     }
   };
@@ -115,7 +103,7 @@ export default function Home({ data }) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Deploy with{" "}
+              Deploy with
               <Image
                 src="/vercel.svg"
                 alt="Vercel Logo"
@@ -128,6 +116,7 @@ export default function Home({ data }) {
           </div>
         </div>
 
+        {/* Body */}
         <div className={styles.center}>
           <h2
             className={
@@ -170,6 +159,7 @@ export default function Home({ data }) {
               <span className="sr-only">Search</span>
             </button>
 
+            {/* Reload button */}
             <button
               type="button"
               className="p-2.5 ml-2.5 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-center"
@@ -180,119 +170,128 @@ export default function Home({ data }) {
           </form>
         </div>
 
-        {/* Display shorten url, target url & title tag */}
+        {/* Display card containing shorten url, target url & title tag */}
         <div className={styles.grid}>
-          {data.data.map((i, index) => (
-            <div
-              className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-              key={index}
-            >
-              <div className="p-5">
-                <a
-                  href={`/api/redirect?shortUrl=${i.shortUrl}`}
-                  onClick={() => handleShortUrlClick(i.urlId)}
-                  target="_blank"
-                >
-                  <p className="mb-2 font-bold tracking-tight text-gray-900 dark:text-white">
-                    {i.shortUrl}
-                  </p>
-                </a>
-
-                <div className="my-4 flex flex-col items-center justify-center sm:flex-row sm:justify-start">
+          {data &&
+            data.data &&
+            data.data.map((i, index) => (
+              <div
+                className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                key={index}
+              >
+                <div className="p-5">
                   <a
-                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                      post
-                    )}`}
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mb-2"
-                    onClick={() => handleShare(i.shortUrl)}
-                    dataSize="large"
+                    href={`/api/redirect?shortUrl=${i.shortUrl}`}
+                    onClick={() => handleShortUrlClick(i.urlId)}
                     target="_blank"
                   >
-                    <AiOutlineTwitter
-                      size={20}
-                      className="inline-block align-text-top"
-                    />
+                    <p className="mb-2 font-bold tracking-tight text-blue-500 hover:text-blue-700">
+                      {i.shortUrl}
+                    </p>
                   </a>
 
-                  <button
-                    type="button"
-                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mx-2 rounded mb-2"
-                    onClick={() => {
-                      handleCopy(
-                        `url-trimming.vercel.app/api/redirect?shortUrl=${i.shortUrl}`
-                      );
-                    }}
-                  >
-                    {isCopied ? (
-                      <>
-                        <AiOutlineCopy
-                          size={20}
-                          className="inline-block align-text-top mr-2"
-                        />
-                        Copied!
-                      </>
-                    ) : (
-                      <>
-                        <AiOutlineCopy
-                          size={20}
-                          className="inline-block align-text-top mr-2"
-                        />
-                        Copy
-                      </>
-                    )}
-                  </button>
-                </div>
+                  {/* Share to Twitter */}
+                  <div className="my-4 flex flex-col items-center justify-center sm:flex-row sm:justify-start">
+                    <a
+                      href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                        "Check out this cool link: " +
+                          `${
+                            process.env.NODE_ENV === "production"
+                              ? process.env.NEXT_PUBLIC_VERCEL_URL
+                              : process.env.BASE
+                          }/api/redirect?shortUrl=${i.shortUrl}`
+                      )}`}
+                      className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mb-2"
+                      dataSize="large"
+                      target="_blank"
+                    >
+                      <AiOutlineTwitter
+                        size={20}
+                        className="inline-block align-text-top"
+                      />
+                    </a>
 
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                  {i.title}
-                </p>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-ellipsis">
-                  {i.origUrl}
-                </p>
-
-                <a
-                  href="#"
-                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  onClick={showModal ? handleCloseModal : handleShowModal}
-                >
-                  {showModal ? "Close Report" : "View Report"}
-                  <svg
-                    aria-hidden="true"
-                    className="w-4 h-4 ml-2 -mr-1"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                </a>
-
-                {showModal && (
-                  <div className="border-t border-gray-300 pt-4 mt-5">
-                    <p className="mb-2 font-bold tracking-tight text-gray-900 dark:text-white">
-                      Number of Clicks: {i.clicks.length}
-                    </p>
-
-                    {i.clicks.map((click, index) => (
-                      <div key={index} className="mb-2">
-                        <div className="text-sm font-medium text-gray-700">
-                          Originating Geolocation: <b>{click.geoLocation}</b>
-                        </div>
-                        <div className="text-xs text-gray-600">
-                          Timestamp:{" "}
-                          {new Date(click.timestamp).toLocaleString()}
-                        </div>
-                      </div>
-                    ))}
+                    {/* Copyable link */}
+                    <button
+                      type="button"
+                      class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mx-2 rounded mb-2"
+                      onClick={() => {
+                        handleCopy(
+                          `url-trimming.vercel.app/api/redirect?shortUrl=${i.shortUrl}`
+                        );
+                      }}
+                    >
+                      {isCopied ? (
+                        <>
+                          <AiOutlineCopy
+                            size={20}
+                            className="inline-block align-text-top mr-2"
+                          />
+                          Copied!
+                        </>
+                      ) : (
+                        <>
+                          <AiOutlineCopy
+                            size={20}
+                            className="inline-block align-text-top mr-2"
+                          />
+                          Copy
+                        </>
+                      )}
+                    </button>
                   </div>
-                )}
+
+                  <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                    {i.title}
+                  </p>
+                  <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-ellipsis">
+                    {i.origUrl}
+                  </p>
+
+                  {/* View shorten url analytics (no of clicks, geolocation & timestamp) */}
+                  <a
+                    href="#"
+                    className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    onClick={showModal ? handleCloseModal : handleShowModal}
+                  >
+                    {showModal ? "Close Report" : "View Report"}
+                    <svg
+                      aria-hidden="true"
+                      className="w-4 h-4 ml-2 -mr-1"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                  </a>
+
+                  {showModal && (
+                    <div className="border-t border-gray-300 pt-4 mt-5">
+                      <p className="mb-2 font-bold tracking-tight text-gray-900 dark:text-white">
+                        Number of Clicks: {i.clicks.length}
+                      </p>
+
+                      {i.clicks.map((click, index) => (
+                        <div key={index} className="mb-2">
+                          <div className="text-sm font-medium text-gray-700">
+                            Originating Geolocation: <b>{click.geoLocation}</b>
+                          </div>
+                          <div className="text-xs text-gray-600">
+                            Timestamp:{" "}
+                            {new Date(click.timestamp).toLocaleString()}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </main>
     </>
