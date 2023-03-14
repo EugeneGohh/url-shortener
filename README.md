@@ -206,7 +206,7 @@ The repository has the following structure:
 
 ### Dependencies
 
-The application was built using the following dependencies and scaffolding tools:
+The application was built using the following dependencies:
 
 - [`axios`](https://www.npmjs.com/package/axios): A promise-based HTTP client for Node.js and the browser.
 - [`cheerio`](https://www.npmjs.com/package/cheerio): A jQuery-like library for parsing HTML and manipulating the DOM.
@@ -238,7 +238,7 @@ The project also has the following development dependencies:
 
 ### Scaffolding Tools
 
-The project does not use any scaffolding tools. However, it does use Next.js, which provides a framework for building React-based web applications. The `create-next-app` command can be used to create a new Next.js project with a basic file structure and configuration.
+This project uses Next.js, which provides a framework for building React-based web applications. The `create-next-app` command can be used to create a new Next.js project with a basic file structure and configuration.
 
 ## Deployed Application URL
 
