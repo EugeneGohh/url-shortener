@@ -19,8 +19,9 @@
 2. Click on "**Browse Collections**".
 3. Click on "**Create Database**"
 4. Enter "**Database Name**" & "**Collection Name**". Please enter the following to the input field.
-   
-   Database Name: **test**, Collection Name: **items**
+   | Database Name  | Collection Name |
+   | ---------------|:--------------: |
+   | test           | items           |          
 5. Untick all checkboxes on **Additional Preferences**
 
 ## Connecting to MongoDB
