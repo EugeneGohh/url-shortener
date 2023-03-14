@@ -2,6 +2,8 @@
 
 This is a URL Shortener web application built with Next.js, TailwindCSS and MongoDB that allows users to convert user-provided target URL ("_Target URL_") to short-form URL ("_Short URL_"), track number of clicks, originating geolocation and timestamp of each visit to a Short URL & can be publicly shared and accessed.
 
+<img width="1792" alt="image" src="https://user-images.githubusercontent.com/64187129/225075058-f16ea861-820d-4f8b-a50b-fba57eb932cf.png">
+
 ## Tech Stack
 
 The following technologies were used to build the URL shortener:
@@ -64,8 +66,8 @@ The URL shortener project uses the Gitflow branching strategy, which is a well-k
    cp .env.example .env
    ```
 
-5. For setting up MongoDB in the cloud, please refer to this [guide](./MongoDB%20Setup%20Guide.md).
-6. Add your MongoDB connection string
+5. For setting up MongoDB in the cloud, please refer to this [guide](./MongoDB%20Setup%20Guide.md) before moving further.
+6. Add your MongoDB connection string into `.env`
 
    ```
    MONGODB_URI=YOUR_MONGODB_URI
@@ -206,7 +208,7 @@ The repository has the following structure:
 
 ### Dependencies
 
-The application was built using the following dependencies and scaffolding tools:
+The application was built using the following dependencies:
 
 - [`axios`](https://www.npmjs.com/package/axios): A promise-based HTTP client for Node.js and the browser.
 - [`cheerio`](https://www.npmjs.com/package/cheerio): A jQuery-like library for parsing HTML and manipulating the DOM.
@@ -238,7 +240,7 @@ The project also has the following development dependencies:
 
 ### Scaffolding Tools
 
-The project does not use any scaffolding tools. However, it does use Next.js, which provides a framework for building React-based web applications. The `create-next-app` command can be used to create a new Next.js project with a basic file structure and configuration.
+This project uses Next.js, which provides a framework for building React-based web applications. The `create-next-app` command can be used to create a new Next.js project with a basic file structure and configuration.
 
 ## Deployed Application URL
 
