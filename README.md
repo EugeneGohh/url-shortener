@@ -64,8 +64,8 @@ The URL shortener project uses the Gitflow branching strategy, which is a well-k
    cp .env.example .env
    ```
 
-5. For setting up MongoDB in the cloud, please refer to this [guide](./MongoDB%20Setup%20Guide.md).
-6. Add your MongoDB connection string
+5. For setting up MongoDB in the cloud, please refer to this [guide](./MongoDB%20Setup%20Guide.md) before moving further.
+6. Add your MongoDB connection string into `.env`
 
    ```
    MONGODB_URI=YOUR_MONGODB_URI
