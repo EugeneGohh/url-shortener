@@ -10,6 +10,8 @@ The following technologies were used to build the URL shortener:
 - [TailwindCSS](https://tailwindcss.com/): A utility-first CSS framework for quickly styling web applications.
 - [MongoDB](https://www.mongodb.com/): A NoSQL document-oriented database for storing and retrieving data.
 
+## The Rough App Design
+
 ## Prerequisites
 
 Before moving into installing this project, make sure you have the following installed on your local machine:
@@ -77,6 +79,12 @@ The URL shortener project uses the Gitflow branching strategy, which is a well-k
    yarn dev
    ```
 
+8. To run the test suite
+
+   ```
+   npm run test
+   ```
+
 ## Configuration
 
 The URL shortener project should be configured using these environment variables, which are defined in the `.env` file. Here are the available environment variables:
@@ -127,6 +135,9 @@ The repository has the following structure:
 
 ```
 .
+│   __tests__/
+│   ├── index.test.js
+│   ├── snapshot.js
 │   lib/
 │   ├── mongodb.js
 │   ├── schema.js
@@ -162,6 +173,7 @@ The repository has the following structure:
 
 ### Overview of Important Folders and Files
 
+- `__tests__/`: Contains automated tests used in the app.
 - `lib/`: Contains utility functions used in the app.
 
   ```
@@ -171,7 +183,6 @@ The repository has the following structure:
   ```
 
 - `public/`: Contains static assets such as images and favicons.
-
 - `src/`: Contains the source code of the Next.js app.
 - `src/pages/`: Contains the app's pages and API routes.
 - `src/styles/`: Contains the CSS styles used by the application
@@ -181,13 +192,16 @@ The repository has the following structure:
 ## Dependencies and Other Relevant Information (i.e scaffolding tools)
 
 ### Scripts
+
 - `dev` - Runs Next.js in development mode.
 - `build` - Builds the Next.js app for production.
 - `start` - Starts a Next.js production server.
 - `lint` - Lints the Next.js app using ESLint.
 - `seed` - Seeds the MongoDB database with dummy data.
 - `test` - Runs Jest tests in watch mode.
+
 ### Dependencies
+
 The application was built using the following dependencies and scaffolding tools:
 
 - [`axios`](https://www.npmjs.com/package/axios): A promise-based HTTP client for Node.js and the browser.
@@ -227,6 +241,15 @@ The project does not use any scaffolding tools. However, it does use Next.js, wh
 The deployed application can be found at <https://url-trimming.vercel.app/> 🎉.
 
 Thank you for reviewing my submission 🥳!
+
+## References
+
+- [What is Git Flow?](https://www.gitkraken.com/learn/git/git-flow)
+- [GitKraken for Git Flow](https://help.gitkraken.com/gitkraken-client/git-flow/)
+- [Version Control Best Practices](https://about.gitlab.com/topics/version-control/version-control-best-practices/)
+- [Aibnb JavaScript Style Guide](https://github.com/airbnb/javascript)
+- [Vercel Deployment](https://vercel.com/docs/concepts/deployments/overview)
+- [Next.js API Route](https://nextjs.org/docs/api-routes/introduction)
 
 ## License
 
