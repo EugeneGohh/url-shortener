@@ -198,6 +198,51 @@ export default function Home({ data }) {
                   </p>
                 </a>
 
+                <div className="my-4 flex flex-col items-center justify-center sm:flex-row sm:justify-start">
+                  <a
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                      post
+                    )}`}
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mb-2"
+                    onClick={() => handleShare(i.shortUrl)}
+                    dataSize="large"
+                    target="_blank"
+                  >
+                    <AiOutlineTwitter
+                      size={20}
+                      className="inline-block align-text-top"
+                    />
+                  </a>
+
+                  <button
+                    type="button"
+                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mx-2 rounded mb-2"
+                    onClick={() => {
+                      handleCopy(
+                        `url-trimming.vercel.app/api/redirect?shortUrl=${i.shortUrl}`
+                      );
+                    }}
+                  >
+                    {isCopied ? (
+                      <>
+                        <AiOutlineCopy
+                          size={20}
+                          className="inline-block align-text-top mr-2"
+                        />
+                        Copied!
+                      </>
+                    ) : (
+                      <>
+                        <AiOutlineCopy
+                          size={20}
+                          className="inline-block align-text-top mr-2"
+                        />
+                        Copy
+                      </>
+                    )}
+                  </button>
+                </div>
+
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                   {i.title}
                 </p>
@@ -225,51 +270,6 @@ export default function Home({ data }) {
                     ></path>
                   </svg>
                 </a>
-
-                <div className="my-4 flex items-center">
-                  <a
-                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                      post
-                    )}`}
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                    onClick={() => handleShare(i.shortUrl)}
-                    dataSize="large"
-                    target="_blank"
-                  >
-                    <AiOutlineTwitter
-                      size={20}
-                      className="inline-block align-text-top"
-                    />
-                  </a>
-
-                  <button
-                    type="button"
-                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mx-2 rounded"
-                    onClick={() => {
-                      handleCopy(
-                        `url-trimming.vercel.app/api/redirect?shortUrl=${i.shortUrl}`
-                      );
-                    }}
-                  >
-                    {isCopied ? (
-                      <>
-                        <AiOutlineCopy
-                          size={20}
-                          className="inline-block align-text-top mr-2"
-                        />
-                        Copied!
-                      </>
-                    ) : (
-                      <>
-                        <AiOutlineCopy
-                          size={20}
-                          className="inline-block align-text-top mr-2"
-                        />
-                        Copy
-                      </>
-                    )}
-                  </button>
-                </div>
 
                 {showModal && (
                   <div className="border-t border-gray-300 pt-4 mt-5">
