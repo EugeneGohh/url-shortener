@@ -37,8 +37,8 @@ export default async function handler(req, res) {
             timestamp: new Date(),
           },
         },
-        $inc: { clicksCount: 1 }, // increment clicksCount by 1
       },
+      { $inc: { clicks: 1 } }, // push a new click object into the clicks array
       { returnOriginal: false } // return the updated document
     );
 

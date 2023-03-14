@@ -37,22 +37,6 @@ export default function Home({ data }) {
     setShowModal(false);
   };
 
-  /* Handler to call Update API  */
-  const handleShortUrlClick = async (urlId) => {
-    try {
-      const response = await fetch(`/api/update?urlId=${urlId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   /* Handler to call Shorten URL API  */
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -182,7 +166,6 @@ export default function Home({ data }) {
                 <div className="p-5">
                   <a
                     href={`/api/redirect?shortUrl=${i.shortUrl}`}
-                    onClick={() => handleShortUrlClick(i.urlId)}
                     target="_blank"
                   >
                     <p className="mb-2 font-bold tracking-tight text-blue-500 hover:text-blue-700">

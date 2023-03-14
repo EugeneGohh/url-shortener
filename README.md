@@ -104,8 +104,7 @@ The URL shortener contains these RESTful APIs for
 
 1. Retrieving all shortened URLs.
 2. Receiving a Target URL as input, generates a unique short URL with a maximum length of 15 characters, stores the Target URL and short URL in a database, and returns the short URL, Target URL, and title tag of the Target URL to the user.
-3. Generating a usage report for the application, tracking the number of clicks, originating geolocation, and timestamp of each visit to a Short URL.
-4. Receiving a short URL as input, looks up the corresponding Target URL in the database, records the number of clicks, originating geolocation, and timestamp of the visit in the database, and redirects the user to the Target URL.
+3. Receiving a short URL as input, looks up the corresponding Target URL in the database, update the number of clicks, originating geolocation, and timestamp of the visit in the database, and redirects the user to the Target URL.
 
 **The API endpoints are**:
 
@@ -115,10 +114,6 @@ Get all the shortened URLs
 
 POST /api/shorten?origUrl="TARGET_URL"
 Create a new short url based on target url
-
-GET /api/update?urlId="URL_ID"
-Update number of clicks, originating geolocation, and
-timestamp of each visit to a Short URL
 
 GET /api/redirect?shortUrl="SHORT_URL"
 Update number of clicks, originating geolocation,
@@ -147,7 +142,6 @@ The repository has the following structure:
 │   │   │   ├── all.js
 │   │   │   ├── redirect.js
 |   |   |   ├── shorten.js
-|   |   |   ├── update.js
 │   │   ├── _app.js
 │   │   ├── _document.js
 │   │   ├── index.js
