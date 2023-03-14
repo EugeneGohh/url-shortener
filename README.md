@@ -20,17 +20,17 @@ Before moving into installing this project, make sure you have the following ins
 
 ## Branching Strategy
 
-The URL shortener project uses the Gitflow branching strategy, which is a well-known and widely used model for managing Git branches. The Gitflow model defines two main branches: `master` and `develop`, as well as several **supporting branches** for **feature development**, **hotfixes**, and **releases**.
+The URL shortener project uses the Gitflow branching strategy, which is a well-known and widely used model for managing Git branches. The Gitflow model defines two main branches: `main` and `develop`, as well as several **supporting branches** for **feature development**, **hotfixes**, and **releases**.
 
-`master`: The `master` branch contains the stable and production-ready code. It should only be updated through merges from the `release` or `hotfix` branches.
+`main`: The `main` branch contains the stable and production-ready code. It should only be updated through merges from the `release` or `hotfix` branches.
 
-`develop`: The `develop` branch contains the latest development code, which may not be fully tested or stable. All new features, bug fixes, and other changes should be merged into develop before they can be merged into master.
+`develop`: The `develop` branch contains the latest development code, which may not be fully tested or stable. All new features, bug fixes, and other changes should be merged into develop before they can be merged into `main`.
 
 `feature/xxx`: A `feature` branch is used to develop a new features or functionality. They should be created from `develop` and merged back into `develop` once they are completed and tested.
 
-`hotfix/xxx`: Hotfix branches are used to fix critical bugs or issues in the production code. They should be created from master and merged into both `master` and `develop` once the fixes are completed and tested.
+`hotfix/xxx`: Hotfix branches are used to fix critical bugs or issues in the production code. They should be created from `main` and merged into both `main` and `develop` once the fixes are completed and tested.
 
-`release/xxx`: Release branches are used to prepare a new release of the codebase. They should be created from `develop` and merged into both `develop`and `master` once they are ready for deployment.
+`release/xxx`: Release branches are used to prepare a new release of the codebase. They should be created from `develop` and merged into both `develop`and `main` once they are ready for deployment.
 
 ## Installation Guide
 
