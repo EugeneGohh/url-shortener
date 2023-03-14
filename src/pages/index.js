@@ -3,7 +3,11 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import { AiOutlineScissor } from "react-icons/ai";
+import {
+  AiOutlineScissor,
+  AiOutlineTwitter,
+  AiOutlineCopy,
+} from "react-icons/ai";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,6 +15,13 @@ export default function Home({ data }) {
   const [longUrl, setLongUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [post, setPost] = useState("");
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopy = (textToCopy) => {
+    navigator.clipboard.writeText(textToCopy);
+    setIsCopied(true);
+  };
 
   const handleReload = () => {
     window.location.reload();
@@ -61,6 +72,22 @@ export default function Home({ data }) {
       }
     } catch (error) {
       // Handle the error here
+      console.error(error);
+    }
+  };
+
+  const handleShare = async (shortUrl) => {
+    try {
+      const res = await fetch(`/api/share?shortUrl=${shortUrl}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      setPost(data.post);
+      return data;
+    } catch (error) {
       console.error(error);
     }
   };
@@ -170,6 +197,51 @@ export default function Home({ data }) {
                     {i.shortUrl}
                   </p>
                 </a>
+
+                <div className="my-4 flex flex-col items-center justify-center sm:flex-row sm:justify-start">
+                  <a
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                      post
+                    )}`}
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mb-2"
+                    onClick={() => handleShare(i.shortUrl)}
+                    dataSize="large"
+                    target="_blank"
+                  >
+                    <AiOutlineTwitter
+                      size={20}
+                      className="inline-block align-text-top"
+                    />
+                  </a>
+
+                  <button
+                    type="button"
+                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mx-2 rounded mb-2"
+                    onClick={() => {
+                      handleCopy(
+                        `url-trimming.vercel.app/api/redirect?shortUrl=${i.shortUrl}`
+                      );
+                    }}
+                  >
+                    {isCopied ? (
+                      <>
+                        <AiOutlineCopy
+                          size={20}
+                          className="inline-block align-text-top mr-2"
+                        />
+                        Copied!
+                      </>
+                    ) : (
+                      <>
+                        <AiOutlineCopy
+                          size={20}
+                          className="inline-block align-text-top mr-2"
+                        />
+                        Copy
+                      </>
+                    )}
+                  </button>
+                </div>
 
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                   {i.title}
