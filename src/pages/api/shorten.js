@@ -1,7 +1,7 @@
 import clientPromise from "../../../lib/mongodb";
 import { nanoid } from "nanoid";
 import axios from "axios";
-import cheerio from "cheerio";
+const cheerio = require("cheerio");
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
