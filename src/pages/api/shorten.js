@@ -6,7 +6,7 @@ import cheerio from "cheerio";
 export default async function handler(req, res) {
   if (req.method === "POST") {
     // the original url
-    const { origUrl } = req.query;
+    const { origUrl } = req.body;
     // base url
     const base =
       process.env.NODE_ENV === "production"
@@ -46,9 +46,13 @@ export default async function handler(req, res) {
       });
 
       res.status(200).json({ shortenUrl: shortUrl });
+      // stop further execution in this callback
+      return;
     } catch (e) {
       console.error(e);
       res.status(500).json({ error: "Internal server error" });
+      // stop further execution in this callback
+      return;
     }
   }
 
