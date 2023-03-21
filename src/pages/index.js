@@ -47,7 +47,7 @@ export default function Home({ data }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ longUrl }),
+        body: JSON.stringify({ origUrl: longUrl }),
       });
 
       const data = await response.json();
