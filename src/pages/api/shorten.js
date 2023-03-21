@@ -45,7 +45,7 @@ export default async function handler(req, res) {
         date: new Date(),
       });
 
-      res.json({ shortenUrl: shortUrl });
+      res.status(200).json({ shortenUrl: shortUrl });
     } catch (e) {
       console.error(e);
       res.status(500).json({ error: "Internal server error" });

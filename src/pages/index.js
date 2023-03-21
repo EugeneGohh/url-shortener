@@ -185,7 +185,7 @@ export default function Home({ data }) {
                           }/api/redirect?shortUrl=${i.shortUrl}`
                       )}`}
                       className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mb-2"
-                      dataSize="large"
+                      datasize="large"
                       target="_blank"
                     >
                       <AiOutlineTwitter
@@ -197,7 +197,7 @@ export default function Home({ data }) {
                     {/* Copyable link */}
                     <button
                       type="button"
-                      class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mx-2 rounded mb-2"
+                      className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mx-2 rounded mb-2"
                       onClick={() => {
                         handleCopy(
                           `url-trimming.vercel.app/api/redirect?shortUrl=${i.shortUrl}`
